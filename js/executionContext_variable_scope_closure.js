@@ -1,4 +1,5 @@
 // global variable in global execution context
+/*jshint esversion: 6 */
 var fullName = "Hi HIQ college Javascript"
 
 // with the creation of firstName a new exeuction context is created

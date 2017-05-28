@@ -120,3 +120,49 @@ let getDivForThis = document.getElementById('helloDiv');
    if(getDivForThis){
      getDivForThis.addEventListener('click', returnElementDiv);
    }
+
+
+// #Example3
+
+const personObject = {
+  name: 'Naim',
+  lastName: 'Latifi',
+  getFullName: function(){
+    console.log('Bounded', this.name +  ' ' + this.lastName);
+  },
+  executeInCallBackFunction : function(){
+    console.log('In callback function', this.name + ' ' + this.lastName);
+  },
+
+  usedInsideClosures: function(){
+    // closure - function inside anther function create a closure in javascript
+    let displayName =  function(){
+      console.log('Hola ' + this.name);
+    }.bind(this);
+    return displayName();
+  }
+};
+
+let displayFullName = personObject.getFullName;
+    console.log(displayFullName()); // undefined
+
+  // functions method call() to bind the personObject
+  console.log("********' displayName by call() '");
+let displayNameByCall = personObject.getFullName.call(personObject);
+     console.log(displayNameByCall);
+  // function method bind() to bind the personObject
+let displayNameByBind = personObject.getFullName.bind(personObject);
+    displayNameByBind();
+console.log("*********** apply() method **********");
+
+let displayNameByApply = personObject.getFullName.apply(personObject);
+
+
+
+    // this used in callback functions
+    let myElementDiv = document.getElementById('thisOnCallBack');
+    //console.log(personObject.executeInCallBackFunction());
+      // we are not executing this to the executeInCallBackFunction instead this refers this is now in button element
+        myElementDiv.addEventListener('click', personObject.usedInsideClosures.bind(personObject));
+    // 'this used inside clousures'
+ console.log(personObject.usedInsideClosures()); // undefined because closures functions do not get access to the outer function
