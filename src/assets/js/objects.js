@@ -128,7 +128,7 @@ const personObject = {
   name: 'Naim',
   lastName: 'Latifi',
   getFullName: function(){
-    console.log('Bounded', this.name +  ' ' + this.lastName);
+    //console.log('Bounded', this.name +  ' ' + this.lastName);
   },
   executeInCallBackFunction : function(){
     console.log('In callback function', this.name + ' ' + this.lastName);

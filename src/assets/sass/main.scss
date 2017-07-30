@@ -2,7 +2,9 @@ body {
   font-family: Helvetica, Arial, sans-serif;
   font-size: 12px;
 }
-
+h1 {
+  text-align: center;
+}
 section {
   margin-bottom: 20px;
 }
@@ -18,4 +20,20 @@ section h3 {
   background-color: red;
   color: #fff;
   margin-top: 40px;
+}
+
+.links {
+  padding: 0 ;
+  max-width: 480px;
+  margin: 0 auto;
+  list-style: none;
+  li {
+    margin-bottom: 20px;
+    background: #757575;
+    padding: 15px;
+  }
+  a {
+    padding: 10px;
+    color: #fff;
+  }
 }

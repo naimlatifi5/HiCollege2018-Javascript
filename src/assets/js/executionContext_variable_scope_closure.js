@@ -75,7 +75,7 @@ variableHositing();
 
 console.log("************** Closures in javascript **************");
 
-  // say your name and clousre
+  // say your name and clousure
 
   function changeHeading(size) {
      return function (){
@@ -108,7 +108,7 @@ let current_button = document.getElementById('current_font-size');
     let getResultSpan = document.getElementById('result_button');
 
     //for(var i = 0; i<3; i++){ // changing i to let in the loop
-       for(let i =0; i<3; i++){
+       for(let i =0; i<3; i++){ // ES6 blocked scope variable
        button = document.createElement("button");
        button.innerHTML = "Button" + i;
        button.addEventListener('click', function(e){
