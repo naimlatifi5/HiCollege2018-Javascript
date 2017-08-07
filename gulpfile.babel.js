@@ -20,7 +20,7 @@ const reload = (done) => {
 const serve = (done) => {
   server.init({
     server: {
-      port : 3200,
+      port : 8888,
       baseDir: './build'
     }
   })
@@ -67,7 +67,7 @@ const scripts = () => {
     .pipe(browserify({
      insertGlobals: true
      }))
-    .pipe(uglify())
+    //.pipe(uglify())
     //.pipe(concat('main.min.js'))
     .pipe(gulp.dest(paths.scripts.dest));
 }

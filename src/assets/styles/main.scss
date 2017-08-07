@@ -2,9 +2,7 @@ body {
   font-family: Helvetica, Arial, sans-serif;
   font-size: 12px;
 }
-h1 {
-  text-align: center;
-}
+
 section {
   margin-bottom: 20px;
 }
@@ -23,18 +21,5 @@ section h3 {
 }
 
 .links {
-  padding: 0 ;
-  max-width: 480px;
-  margin: 0 auto;
-  list-style: none;
-  width: 100%;
-  li {
-    margin-bottom: 20px;
-    background: #757575;
-    padding: 15px;
-  }
-  a {
-    padding: 10px;
-    color: #fff;
-  }
+
 }

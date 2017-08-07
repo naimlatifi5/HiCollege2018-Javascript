@@ -7,6 +7,7 @@ console.log("************ =====Variable and scoping======== ***********");
 const hello = "Naim";
 //hello = "cannot change";
 console.log(hello);
+
 function f(){
   const temp = 4;
   if(true){
@@ -22,7 +23,7 @@ function letVariableScopeES6(){
      // variables are blocked scope and cannot access outside
      let temp = 123;
      // variables in with let are mutuable and can be changed
-     temp = "hello changed";
+     temp = "hello you changed me";
      console.log(temp);
 
    }
@@ -30,11 +31,13 @@ function letVariableScopeES6(){
 }
 letVariableScopeES6();
 
+
+
 function varVariableES5(){
     if(true){
       var temp1 = 222;
     }
-    console.log("ES5 are function scoped(hoisting variables)", temp1);
+    console.log("ES5 are function scoped(hoisting variables)", temp1); // you can access temp1 value because the variable are hosited in ES5
 }
 varVariableES5();
 
@@ -46,7 +49,8 @@ function varInForLoopES6(){
   for(var i of myArray){
      arr.push(() => i);
   }
-  console.log(arr.map(x => x())); // [3,3,3]
+  console.log(arr.map(x => x())); // [3,3,3] // because var is hoisted inside for loop
+
 
 }
 varInForLoopES6();
@@ -56,12 +60,22 @@ varInForLoopES6();
 function letInForLoopES6(){
   const arr1 = [];
   const myArray1 = [1,2,3];
+  const programmingLanguages = [{'Javascript': 'Good'}, {'css': 'fair enough'}];
   // use const in loops because only one binding is created per iteration
   for(const i of myArray1){
       arr1.push(() => i);
+      //arr1.push(myArray1[i]);
+
   }
-  console.log(arr1.map(x => x())); // [1,2,3]
+    console.log(arr1.map(
+                     x => x())
+                   ); // [1,2,3]
+
 }
+
+// loop through programming languages
+
+
 letInForLoopES6();
 // constans in object declaration
 
@@ -73,6 +87,7 @@ const myModule = {
 console.log(myModule);
 myModule.hello = 'hi there ,changed property name even that it is a constant object';
 console.log(myModule);
+// however you cannot redeclare an object with ES6
 // cannot be redeclared
 //const myModule = {
 //  hello : 'hello',
@@ -81,14 +96,15 @@ console.log(myModule);
 
 //console.log(myModue);
 
+
 console.log("============ Arrow function ============");
+
 
 function handleClick(e) {
   console.log(e);
   return "I changed the content";
 
 }
-
 // ES5
 function ES5ArrowFunction(){
    var button = document.getElementById('static-button');
@@ -102,13 +118,15 @@ function ES5ArrowFunction(){
 function ES6ArrowFunction(){
   var button  = document.getElementById('arrow-function');
       button.addEventListener('click', (e) => {
+
         if(this === window){
           // value of this in the arrow function is determine where the arrow function is defined
           console.log('context',  this);
           // always e.currentTarget refers to the DOM element with whose event listener is attached
           console.log(e.currentTarget);
         }
-        e.currentTarget.innerHTML = 'I am an arrow function'; // now this referes to the target element;
+
+        e.srcElement.innerHTML = 'I am an arrow function'; // now this referes to the target element;
       });
 }
 
@@ -120,8 +138,19 @@ var multipleNumber = function(num1, num2){
 console.log('Multiplication is = ', multipleNumber(3,3));
 
 // ES6- shorter syntax , no need for function name and return value
+// expression after arrow is always return
+// Note that if you have only one arguments in function with the arrow function you can ommit the parentheses
+// instead of (num1) => 'expression' you can write num1 => 'expression'
+
 let multipeNumberES6 = (num1, num2) => num1 * num2;
   console.log("Multiplication ES6 = " , multipeNumberES6(4,4));
+
+// whenever you have one expression you do not need curly braces see above otherwise if your code has multople lines with expression then use return and curly braces
+let multipleNumberES6 = (num1, num2) => {
+  return num1 * num2;
+}
+
+
 
 // ES6 arrow function -if there is no parameter then curly braces are needed around function body
 let getDocument = () => {
@@ -131,7 +160,7 @@ getDocument();
 
 // arrow functions on arrays
 
-let phones = [
+const phones = [
   { name: 'iphone',
     price: '6000kr'
   },
@@ -153,52 +182,70 @@ let phones = [
 
 ];
 
+const arrayData = ['1', '2', '3'];
+    arrayData.forEach(function(element){
+    console.log(element);
+});
+
 // ES5
-let mapWithPricePhones = phones.map(function(item){
+const mapWithPricePhones = phones.map(function(item){
       return item.price;
 });
 
+//console.log(phones);
 console.log('Phones by price ', mapWithPricePhones);
-console.log(typeof mapWithPricePhones);
-
+console.log(typeof mapWithPricePhones); // object
 
 // ES6
-
- let mapWithNamePhones = phones.map((item) => item.name);
- console.log("Phone by names " , mapWithNamePhones);
+ // only one parameter so remove parenthese, we have only one expression remove return statement
+ let mapWithNamePhones = phones.map(element => element.name );
+ console.log("Phone by names arrow function ES6 " , mapWithNamePhones);
 
 // ES6 filter by price
-
-let filterByPrice = phones.filter((item) => item.price == '3000kr');
-console.log("Filtered by price " , filterByPrice);
-
+let filterByPrice = phones.filter(item => item.price == '3000kr');
+console.log("Filtered by price arrow function ES6 " , filterByPrice);
 
 
-function Phone(phoneName) {
-  this.phoneName = phoneName;
+
+// this determined by arrow function- see below
+// construction function that creates the object branndYear
+function Phone(brandYear) {
+  this.brandYear = brandYear;
 }
-Phone.prototype.addPhoneArray = function(arr){
+
+Phone.prototype.addBrandYear = function(phones){
+    // this === myPhone
     'use strict';
-    // one solution to this problem is to get the this context with var that
+    //one solution to this problem is to get the this context with var that
     //var that = this;
-   //return arr.map(function(arrayName){
-    //  return this.phoneName + " "  + arrayName.name;
+    // return phones.map(function(phone){
+  // return  `${this.brandYear} ${phone.name}`; // if there is no bind or self variable inside function this has another lexical scope
   // }.bind(this)); // another solution is to bind this
 
-
-
-
   // no need for 'that' or bind(this)
-  // ES6
-  return arr.map((arrayName) => this.phoneName + ' ' + arrayName.name);
-
-
+  // ES6 and arrow function
+  //
+  return phones.map(phone => this.brandYear + ' ' + phone.name);
 
 };
 
-let myPhone = new Phone('New brand ');
+let myPhone = new Phone('2017');
 console.log(myPhone);
-console.log(myPhone.addPhoneArray(phones));
+console.log(myPhone.addBrandYear(phones));
+
+// case when arrow function would not work
+const profile = {
+    name: 'Naim',
+    getName: function(){ // if replacing with ()  => this would not be the name but global scope
+         return this.name;
+    }
+};
+console.log(profile.getName());
+
+
+
+
+
 
 // ES5
 var helloFunction = function(){
@@ -210,7 +257,6 @@ console.log(helloFunction());
 let helloFunctionES6 = () => {
   console.log("Function expression with IE6");
 };
-
 console.log(helloFunctionES6());
 
 
@@ -243,22 +289,6 @@ const myModuleExampleES6 = {
   }
 };
 
-console.log(myModuleExampleES6.parseData());
-
-
-
-
-
-console.log(myModuleExample.someData);
-console.log(myModuleExample.parseData());
-
-console.log("****************** End of arrow function **************");
-    // IIFE immedially invoked funciton expresion
-         {
-             ES5ArrowFunction();
-             ES6ArrowFunction();
-         }
-
 // if used _ there is a function arrow without parameters
 const myFunctionWithoutParameters = _ =>{
    console.log("hello function");
@@ -271,21 +301,72 @@ let objectI = {
    }
 };
 
+
+console.log(myModuleExampleES6.parseData());
+console.log(myModuleExample.someData);
+console.log(myModuleExample.parseData());
+
+console.log("****************** End of arrow function **************");
+
+console.log("************Object literals enhancement ES6 ******************")
+// Object literals enhancements with ES6
+let color = "blue"
+const Car = {
+  //color: color, // if we have a key/ value with the same name then we can omit and have only one name
+  color,
+  drive: function(){  // functions keyword we can omit for functions and instead have the parenthese only
+    return "Wiooo"
+  },
+  getColor: function(){
+    return this.color;
+  }
+}
+
+console.log("Hello my car ", Car.color);
+console.log(Car.drive());
+
+
+var object1 = {
+  print1: function(){
+    console.log('print1')
+  },
+  print2: function(){
+    console.log('print2');
+    this.print1();
+  }
+}
+
+console.log(object1.print2());
+
+// ES6 has method syntax definition
+const object2 = {
+  print3(){
+    console.log("print 3");
+  },
+  print4(){
+    this.print3();
+  }
+}
+console.log(object2.print3());
+
+
+// IIFE immedially invoked funciton expresion
+    {
+             ES5ArrowFunction();
+             ES6ArrowFunction();
+    }
+
+
+
 console.log("================= Default parameters in ES6 ================");
-
-
 function params(name, lastName, birthday){
   console.log("Info : "  + name + lastName + birthday);
 }
-
 params ('Naim', 'Latifi', '8605225393');
-
 // default parameter if not givem
-
 params('Naim', 'Latifi'); // Naim Latifi undefined
 
-// ES5 default parameters
-console.log("******* Default params in ES5 =========");
+
 function defaultParamsBirthday(name, lastName, birthday){
        birthday = birthday || '8605225393';
        console.log("Info:" + name + " " +  lastName +  " " +  birthday);
@@ -303,13 +384,12 @@ function defaultParamsName(name , lastName, birthday){
 defaultParamsName('Latifi', '86052259393');
 
 // ES6
-
 function defaultParamsBirthdayES6 (name , lastName, birthday = '8605225393'){
    console.log(name , + '' + lastName + ' ' + birthday);
 }
-
 defaultParamsBirthdayES6('Naim', 'Latifi');
 
+// example2
 function helloThere(sayHi){
     sayHi = sayHi || 'Hello';
     console.log(sayHi);
@@ -319,9 +399,30 @@ function helloThere(sayHi){
     console.log(sayHi);
   }
 
+  // example3
 
-  console.log("========== Function parameters ES5 vs ES6 ===========");
+  function numberAdditions(num1, num2){
+    num1 = num1 || 0;
+    num2 = num2 || 0;
+    return num1  + num2;
+  }
 
+ console.log("Without parameter" , numberAdditions());
+ console.log("Additions : ",numberAdditions(3,4));
+
+// ES6 parameters
+function numberAdditionsES6(num1 = 0 , num2 = 0){
+  return num1 + num2;
+}
+
+console.log("ES6 without parameter",numberAdditionsES6());
+console.log("ES6 with parameter" , numberAdditions(4,5));
+
+
+
+
+  console.log("========== Rest and spread ES5 vs ES6 ===========");
+  // rest operator
   function logAllArguments(){
      for(var i=0; i<=arguments.length; i++){
         console.log(arguments[i]);
@@ -338,6 +439,64 @@ function helloThere(sayHi){
 
   logAllArguments('naim', 'latifi');
   logAllArgumentsES6('test1', 'test2');
+
+  // example 2
+  let arr1 = [1,2,3];
+  let arr2 = [4,5,6];
+
+  //ES5 case scenario ========== comment out to test
+  //arr1.push(arr1,arr2); // inside arr1 we will add arr1, arr2
+  // with apply we will add the context for arr1 to arr2 inside arr1
+  //arr1.push.apply(arr1,arr2); // result [1,2,3,4,5,6]
+  //console.log(arr1);
+
+  // ES6 array with spread operator
+  arr1.push(...arr2);
+  console.log(arr1);
+
+  // concating array with javascriot
+  var arr3 = ['a', 'b', 'c'];
+  var arr4 = ['d', 'e','f'];
+  // in ES6 with the use of spread function we can do like this
+  const newArray = ['anotherValuewhatever', ...arr3, ...arr4]; // we can add other values to the array
+  console.log(newArray);
+
+
+  // example refactor this to rest operator
+  // without use of rest
+  function addition(a, b, c, d, e) {
+  var numbers = [a,b,c,d,e];
+
+  return numbers.reduce(function(acc, number) {
+    return acc  +  number;
+  }, 0)
+}
+
+//console.log(product(1,2,3,4,5));
+
+// with rest operator
+function addition(... numbers){
+  return numbers.reduce((add, number) => add + number, 0)
+}
+
+console.log("Addition is: ", addition(1,2,3,4,5));
+
+
+function join(array1, array2) {
+  return  array1.concat(array2)
+}
+
+function joinSpreadOperator(array1, array2){
+  return [...array1, ...array2]
+}
+
+console.log("Concat : ",  join(arr3, arr4));
+console.log("Spread: " , joinSpreadOperator(arr3, arr4));
+
+
+
+
+
 
 
 console.log("=============== Destructing objects ES6 ============ ");
@@ -368,9 +527,7 @@ console.log("=============== Destructing objects ES6 ============ ");
 
     // similar as destructing objects but we use square brackes instead []
 
-
     let myArrayData = ['1', '2', '3'];
-
     // destruct array object
     let [one] = myArrayData;
     console.log("Get array first element " , one);
@@ -386,98 +543,6 @@ console.log("=============== Destructing objects ES6 ============ ");
 
 
 
-//
-//
-// console.log("============ string interpolation ES5 vs ES6 and template engine  ============");
-//
-// function printOutES5(a, b ){
-//   console.log('a = ' + a + ' b = ' + b);
-// }
-// printOutES5(4,3);
-//
-// // ES6
-// function printOut(x,y){
-//   console.log(`${x}, ${y}`);
-// }
-// printOut(4,5);
-//
-//  function templateES6(queryElement){
-//    const list = queryElement;
-//    for(i =0; i<=list.length; i++){
-//       console.log(list[i]);
-//    }
-//  }
-
-//
-// function clickMe(){
-//   let listTags = document.getElementsByTagName('*');
-//    templateES6(listTags);
-// }
-//
-//
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//
-//     console.log("************* Manipulation with Array ES5 vs ES6 ************");
-//     var arr1 = [1,2,3];
-//     var arr2 = [4,5,6];
-//     //arr1.push(arr1,arr2); // inside arr1 we will add arr1, arr2
-//     // with apply we will add the context for arr1 to arr2 inside arr1
-//     //arr1.push.apply(arr1,arr2); // result [1,2,3,4,5,6]
-//     //console.log(arr1);
-//
-//     // ES6 array with spread operator
-//     arr1.push(...arr2);
-//     console.log(arr1);
-//
-//     // concating array with javascriot
-//
-//     var arr3 = ['a', 'b', 'c'];
-//     var arr4 = ['d', 'e','f'];
-//     console.log(arr3.concat(arr4));
-//
-//     // in ES6 with the use of spread function we can do like this
-//     const newArray = [...arr3, ...arr4];
-//     console.log(newArray);
-//
-//     console.log("************ From object literals to methods and functions ES5 vs ES6");
-//
-//     var object1 = {
-//       print1: function(){
-//         console.log('print1')
-//       },
-//       print2: function(){
-//         console.log('print2');
-//         this.print1();
-//       }
-//     }
-//
-//     console.log(object1.print2());
-//
-//     // ES6 has method syntax definition
-//
-//     var object2 = {
-//       print3(){
-//         console.log("print 3");
-//       },
-//       print4(){
-//         this.print3();
-//       }
-//     }
-//     console.log(object2.print3());
-//
 //     console.log("*********** From cunstructors to classes ***************");
 //
 //     function Person(name){
