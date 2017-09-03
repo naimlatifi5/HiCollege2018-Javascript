@@ -29,7 +29,7 @@ const serve = (done) => {
 
 const paths = {
   templates: {
-    src: 'src/*.html',
+    src: 'src/**/*.html',
     dest: 'build/'
   },
   styles: {
