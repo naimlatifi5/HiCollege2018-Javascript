@@ -60,34 +60,63 @@ console.log("ES6 without parameter",numberAdditionsES6());
 console.log("ES6 with parameter" , numberAdditions(4,5));
 
 /********************************************
-*        Rest and spread  ES6               *
+*        Rest parameter in  ES6               *
 *                                           *
 **********************************************/
-
 
   console.log("========== Rest and spread ES5 vs ES6 ===========");
   // ES5
   function logAllArguments(){
+    console.log("Arguments in function log all argument ", arguments);
+    console.log("type of arguments " , typeof arguments); // they are like array object but not real array and does not support methods and properties for an array
      for(var i=0; i<=arguments.length; i++){
         console.log(arguments[i]);
      }
      console.log("we have ", arguments.length , "arguments");
+     // let's try to use forEach method to map element
+     //
+      //arguments.forEach((val, index) => { // type error because it does not contain array methods thus ew have to come work around and slplice to array
+      // console.log(val);
+     //});
+
+     let argumentsAsRealArray = Array.prototype.slice.call(arguments);
+     console.log("Hello array arguents", argumentsAsRealArray);
+     argumentsAsRealArray.forEach( (val, index) => {
+       console.log("Value is ", val);
+       console.log("Index is ", index);
+     });
   }
 
   // with rest operator, the parameter receives remaining parameters via an Array
-  function logAllArgumentsES6(...argument){
-     for(const i of argument){
-       console.log(i);
-     }
-      console.log(argument.length);
+  function logAllArgumentsES6(...argumentsWithRest){
+     console.log("With rest operator we have a real array ", argumentsWithRest);
+     // we can use forEach
+     argumentsWithRest.forEach((val, index) => {
+       console.log("value is ", val);
+       console.log("index is ", index);
+     });
   }
 
   logAllArguments('naim', 'latifi');
   logAllArgumentsES6('test1', 'test2');
 
+  function gatherTheRestParameter(str1, ...rest){ // note the ...rest parameters must be at the end
+    console.log(str1) // want to print only this one the rest give me the array
+    console.log(rest);
+  }
+
+ gatherTheRestParameter("hello there Rest", 'nice to have you in array', 'cool stuff here');
+
+
+
+
+
+
+console.log("============ Spread operator ===============");
   // example 2
   let arr1 = [1,2,3];
   let arr2 = [4,5,6];
+  console.log(...arr1);
 
   //ES5 case scenario ========== comment out to test
   //arr1.push(arr1,arr2); // inside arr1 we will add arr1, arr2
@@ -106,26 +135,7 @@ console.log("ES6 with parameter" , numberAdditions(4,5));
   const newArray = ['anotherValuewhatever', ...arr3, ...arr4]; // we can add other values to the array
   console.log(newArray);
 
-
-  // example refactor this to rest operator
-  // without use of rest
-  function addition(a, b, c, d, e) {
-  var numbers = [a,b,c,d,e];
-
-  return numbers.reduce(function(acc, number) {
-    return acc  +  number;
-  }, 0)
-}
-
 //console.log(product(1,2,3,4,5));
-
-// with rest operator
-function addition(... numbers){
-  return numbers.reduce((add, number) => add + number, 0)
-}
-
-console.log("Addition is: ", addition(1,2,3,4,5));
-
 
 function join(array1, array2) {
   return  array1.concat(array2)

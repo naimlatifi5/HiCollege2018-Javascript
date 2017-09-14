@@ -246,31 +246,38 @@ console.log("Child 3 does not want to have a new address added from child2", chi
 // Constructor stealing --- a technique we call the constructor from the SuperType FamilyAddress to the subType childAddress- added to ChildAddress comment out.
 
 
-// Combination of constructor stealing and prototype chain
+// Combination of constructor stealing and prototype chain- to fix the issue with reference types
 
-function Father1(name, address){
+function Father1(name){
   this.name = name;
-  this.addresses = address;
-  this.friends = ['tommy', 'Johan'];
+  this.fathersName = 'Anders';
+  this.addresses = ['Söderberga', 'Nacka'];
 }
-Father1.prototype.sayName = function(){
-  console.log(this.name);
+Father1.prototype.sayFatherName = function(){
+  console.log(this.fathersName);
 }
 
-function Child3(name, address, age){
+
+function Child3(name, age){
   // stealing constructor
-   Father1.call(this, name, address);
+   Father1.call(this, name);
    this.age = age;
 }
 // all properties
 Child3.prototype = new Father1();
-
-var firstChild = new Child3('Naim', 22, 'Söderberga alle');
+Child3.prototype.sayName = function(){
+  return this.name;
+}
+var firstChild = new Child3('Joe', 22);
 console.log("First child ", firstChild);
+console.log(firstChild.sayFatherName());
 console.log(firstChild.sayName());
-firstChild.friends.push('Armando');
-console.log(firstChild.friends);
 
-var secondChild = new Child3('Andrea', 30, 'Stockholm');
+firstChild.addresses.push('New address');
+console.log(firstChild.addresses);
+
+var secondChild = new Child3('Andrea', 30);
+console.log(secondChild);
+console.log(secondChild.sayFatherName());
 console.log(secondChild.sayName());
-console.log(secondChild.friends);
+console.log(secondChild.addresses);

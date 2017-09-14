@@ -5,7 +5,7 @@ function helloObject(){
 }
 helloObject();
 
-const person = {
+var person = {
   firstName: 'Naim',
   lastName : 'Latifi',
   displayFullName: function(){
@@ -22,7 +22,7 @@ console.log(person.displayFullName());
 
 console.log("============== bind() method =================");
 // #example1
-var buttonStyle = {
+var myDiv = {
    paddingTop : '20px',
    paddingBottom : '20px',
    background:'red',
@@ -35,24 +35,22 @@ var buttonStyle = {
      this.style.fontSize = '20px';
     console.log(this);
 
-  },
-
-
+  }
 };
 
-function displayButtonName(sayHiButton){
-  console.log("hi  " + this.buttonName);
+function displayButtonName(){
+  console.log("hi" + this.buttonName);
 }
 
-let button = document.getElementById('thisValue'),
-    borrowMethod = document.getElementById('borrowMethod');
+var div = document.getElementById('thisValue');
+var divBorrowMethod = document.getElementById('borrowMethod');
 
-    button.addEventListener('click', buttonStyle.changeButtonStyle);
-    borrowMethod.addEventListener('click', displayButtonName.bind(buttonStyle));
+div.addEventListener('click', myDiv.changeButtonStyle);
+divBorrowMethod.addEventListener('click', displayButtonName.bind(myDiv)); // with the help of bind method
 
 //#example2
 
- const personObject = {
+ var personObject = {
     firstName: 'Naim',
     lastName : 'Latifi',
     displayFullName : function(){
@@ -69,19 +67,16 @@ var getCopyBindFunction = infoPerson.bind(personObject);
 getCopyBindFunction('860522');
 
 
-
 console.log("======================= call() method =================");
-  //#exaple 1
-  // with the call we set this explicitly and invoke the function immediately
-  var sayhello = function(greeting){
-    console.log(greeting + ' ' + this.displayFullName());
+//#exaple 1
+// with the call we set this explicitly and invoke the function immediately
+var sayhello = function(greeting){
+  console.log(greeting + ' ' + this.displayFullName());
 
-  };
-  sayhello.call(personObject, 'Hello there'); // in call you can pass parameters of function invoked
+};
+sayhello.call(personObject, 'Hello there'); // in call you can pass parameters of function invoked
 
 //#example2 - todo create an example with DOM elements
-
 console.log("================= apply() method ===================");
-// apply works the same except that arguments are passed as array
-
- sayhello.apply(personObject, ['Hello there']);
+// apply works the same except that arguments are passed as arra
+sayhello.apply(personObject, ['Hello there']);

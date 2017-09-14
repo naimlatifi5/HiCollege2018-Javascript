@@ -3,36 +3,6 @@
 *                                           *
 **********************************************/
 console.log("============ Arrow function ============");
-function handleClick(e) {
-  console.log(e);
-  return "I changed the content";
-
-}
-// ES5
-function ES5ArrowFunction(){
-   var button = document.getElementById('static-button');
-      button.addEventListener('click', function(){
-        console.log('ES5' ,this);
-        this.innerHTML = handleClick();
-      });
-}
-
-// ES6
-function ES6ArrowFunction(){
-  var button  = document.getElementById('arrow-function');
-      button.addEventListener('click', (e) => {
-
-        if(this === window){
-          // value of this in the arrow function is determine where the arrow function is defined
-          console.log('context',  this);
-          // always e.currentTarget refers to the DOM element with whose event listener is attached
-          console.log(e.currentTarget);
-        }
-        e.srcElement.innerHTML = 'I am an arrow function'; // now this referes to the target element;
-      });
-}
-
-
 // ES5
 var multipleNumber = function(num1, num2){
     return num1 * num2;
@@ -43,6 +13,8 @@ console.log('Multiplication is = ', multipleNumber(3,3));
 // expression after arrow is always return
 // Note that if you have only one arguments in function with the arrow function you can ommit the parentheses
 // instead of (num1) => 'expression' you can write num1 => 'expression'
+// create an arrow function whenever we use an anonymous function.
+// if we have no arguments we can use substitute  () with  "_"
 
 let multipeNumberES6 = (num1, num2) => num1 * num2;
   console.log("Multiplication ES6 = " , multipeNumberES6(4,4));
@@ -53,7 +25,7 @@ let multipleNumberES6 = (num1, num2) => {
 }
 
 // ES6 arrow function -if there is no parameter then curly braces are needed around function body
-let getDocument = () => {
+let getDocument = _ => {
    console.log("Document element" , document);
 };
 getDocument();
@@ -105,49 +77,12 @@ console.log(typeof mapWithPricePhones); // object
 let filterByPrice = phones.filter(item => item.price == '3000kr');
 console.log("Filtered by price arrow function ES6 " , filterByPrice);
 
-
-
-// this determined by arrow function- see below
-// construction function that creates the object branndYear
-function Phone(brandYear) {
-  this.brandYear = brandYear;
-}
-
-Phone.prototype.addBrandYear = function(phones){
-    // this === myPhone
-    'use strict';
-    //one solution to this problem is to get the this context with var that
-    //var that = this;
-    // return phones.map(function(phone){
-  // return  `${this.brandYear} ${phone.name}`; // if there is no bind or self variable inside function this has another lexical scope
-  // }.bind(this)); // another solution is to bind this
-
-  // no need for 'that' or bind(this)
-  // ES6 and arrow function
-  //
-  return phones.map(phone => this.brandYear + ' ' + phone.name);
-
-};
-
-let myPhone = new Phone('2017');
-console.log(myPhone);
-console.log(myPhone.addBrandYear(phones));
-
-// case when arrow function would not work
-const profile = {
-    name: 'Naim',
-    getName: function(){ // if replacing with ()  => this would not be the name but global scope
-         return this.name;
-    }
-};
-console.log(profile.getName());
-
-
-
+// expression function
 var helloFunction = function(){
     console.log("function expression with ES5");
 };
 
+// arrow function only on anonymous functions
 console.log(helloFunction());
 
 let helloFunctionES6 = () => {
@@ -202,11 +137,148 @@ console.log(myModuleExampleES6.parseData());
 console.log(myModuleExample.someData);
 console.log(myModuleExample.parseData());
 
+
+
+console.log("=============== this with arrow function ===============");
+// ES5
+var objectES5 = {
+  name: "Print after 2 seconds",
+
+  printWithDelay: function(){
+    //var self = this; // work around
+    window.setTimeout(function(){ // function creates their own this
+      this.textToPrint(); // change ti that
+    // bind(this) -- to skip that and this
+  }.bind(this), 2000); // print after two seconds or bind()
+  },
+
+  textToPrint: function(){
+   console.log(this.name);
+ }
+}
+
+//objectES5.printWithDelay();
+// ES6 and arrow function
+const objectES6 = {
+  name : "Print me with arrow function after 2 sec",
+  printWithDelay :  function(){
+    window.setTimeout(() => {
+      this.textToPrint();
+    }, 2000);
+  },
+  textToPrint: function(){
+    console.log(this.name);
+  }
+}
+objectES6.printWithDelay();
+
+
+const objectButtonES6 = {
+   buttonName: 'MyButton1',
+   button : document.getElementById('myButton1'),
+   endAnimation: function(){
+     this.button.classList.add('active');
+     setTimeout(() => { // lexical binding  "this" is set to function defined not used.
+       this.button.classList.remove('is-open');
+       this.button.classList.remove('active');
+       this.button.classList.add('active-again');
+       console.log("removed class is-open and active this ES6 ");
+     }, 4000);
+   },
+
+   buttonClick: function(){
+     // sorrounding scope here is buttonclick methods where this it refers to the object
+      this.button.onclick = () => {
+        console.log("yes gott button name" , this.buttonName);
+      };
+   }
+}
+
+objectButtonES6.endAnimation();
+objectButtonES6.buttonClick();
+
+// problem with ES5 and this
+const objectButtonES5= {
+   button : document.getElementById('myButton'),
+   endAnimation: function(){
+     this.button.classList.add('active');
+      window.setTimeout(function() {
+       this.button.classList.remove('is-open');
+       this.button.classList.remove('active');
+       this.button.classList.add('active-again');
+       console.log("removed class is-open and active with ES5")
+     }.bind(this), 4000); // this does not refers to the object method endAnimation
+               // overcome the problem use bind
+   }
+
+}
+
+
+
+
+
 console.log("****************** End of arrow function **************");
 
+console.log("================ Where not to use arrow function ============");
 
+objectButtonES5.button.addEventListener('click', function(e){
+  console.log("hello there");
+  this.style.fontSize = '20px';
+});
+
+objectButtonES6.button.addEventListener('click',  (e) => {
+   // if we can if this is === window - try in console- here will return undefined because of gulp and babel
+   console.log(this === window) // true
+   // to overcome issue we can access with e.srcElement
+   //this.style.fontSize = "50px" error because the arrow function lexica scode is created when defined not executed and gets to the outer function
+   e.srcElement.style.fontSize = "50px";
+
+});
+
+
+
+
+// case when arrow function would not work in object methods
+const profile = {
+    name: 'Naim',
+    getName: function(){ // if replacing with ()  => this would not be the name but global scope
+         return this.name;
+    }
+};
+console.log(profile.getName());
+
+
+// on constructor function
+const Profile = (name) => {
+  this.name = name;
+}
+//let firstProfile = new Profile() // throw and error
+function Profile1(name){
+  this.name = name;
+}
+
+
+// in prototype methods
+Profile1.prototype.displayName = function(){
+  console.log("This is my name-" , this.name);
+}
+
+
+var firstProfile1 = new Profile1("Hello there");
+console.log(firstProfile1.displayName());
+
+
+Profile1.prototype.displayNameArrowFunction = () => {
+    console.log("Value of this ", this);
+    console.log(window === this);
+}
+
+
+var secondProfile1 = new Profile1("With Arrow function");
+console.log(secondProfile1.displayNameArrowFunction());
+
+//console.log(firstProfile);
 // IIFE immedially invoked funciton expresion
     {
-             ES5ArrowFunction();
-             ES6ArrowFunction();
+
     }

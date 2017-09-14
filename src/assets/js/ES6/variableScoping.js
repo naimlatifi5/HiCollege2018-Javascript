@@ -48,6 +48,7 @@ varVariableES5();
 function varInForLoopES6(){
   const arr = [];
   const myArray = [1,2,3];
+
   for(var i of myArray){
      arr.push(() => i);
   }
@@ -60,26 +61,36 @@ varInForLoopES6();
 
 // let in for loop
 function letInForLoopES6(){
-  const arr1 = [];
-  const myArray1 = [1,2,3];
-  const programmingLanguages = [{'Javascript': 'Good'}, {'css': 'fair enough'}];
+  const arr = [];
+  const myArray = [1,2,3];
   // use const in loops because only one binding is created per iteration
-  for(const i of myArray1){
-      arr1.push(() => i);
-      //arr1.push(myArray1[i]);
-
+  for(const i of arr){ // const and block level variable is not hoisted
+     arr.push(() => i);
   }
-    console.log(arr1.map(
-                     x => x())
-                   ); // [1,2,3]
-
+  console.log("My array data ", arr);
 }
 
 // loop through programming languages
-
-
 letInForLoopES6();
 // constans in object declaration
+
+// example with let inside for loop block level
+function createThreeFunctionInArray(){
+   var arr = [];
+   for(var i = 0; i<3; i++ ) {
+     let j =i;
+      arr.push(function(){
+        console.log(j);
+      });
+   }
+   return arr;
+}
+
+var f = createThreeFunctionInArray();
+f[0]();
+f[1]();
+f[2]();
+
 
 const myModule = {
     hello: 'hi',

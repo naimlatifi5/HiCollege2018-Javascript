@@ -8,11 +8,9 @@ console.log("*********** Template literals ************");
 let myName = 'Naim';
 
 console.log(`Literal templates-Hello there template and ${myName} `);
-let string1 = 'Hello there ';
-// map the array to an template literal and represent it on the DOM
+
 
 const objectArrays = [];
-
 const obje1 = {
   name: 'Naim',
   lastName: 'Latifi'
@@ -61,14 +59,23 @@ const template = name =>
 
 
  function tags(stringValue , ...values) {
-   console.log("string value", stringValue);
-   console.log("And values are" , values);
+     // implementation
  }
+
+
+
 
  let number1 = 3
  let number2 = 4
+
  let template2 = tags `Hello tags ${number1} ${number2}`; // numb1 and num2 are placeholder on array return from tags function
+
  console.log(template2);
+
+
+
+
+
 
  //ES6
  const myObectTemplate = {

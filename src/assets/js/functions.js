@@ -1,26 +1,25 @@
 // Function declaration are hoisted
 /*jshint esversion: 6 */
-
+var printMe = "Print me";
 console.log("================= Function creation ==================");
-
 function sayHello(){
    console.log("hello there function declaration");
+   console.log(printMe); // printMe is in global context and thus have access sayHello
  }
-
-sayHello();
+sayHello(); // New execution context is created
 
 // function creation with arguments
-function sayHello(name){
+function sayHelloWithParam(name){
    console.log("Hi there " + name);
 }
-sayHello('Naim');
+sayHelloWithParam('Naim');
 
 // function creation with return value
 function sayHelloReturnName(name){
   return "Hi there " + name;
 }
-
 console.log(sayHelloReturnName('Naim'));
+
 
 
 // functions with multiple arguments
@@ -59,66 +58,10 @@ console.log(helloMyExpressionFunction instanceof Object);
 
   console.log(addFive(0));
 
- console.log('================= Exercies with functions scope ================');
-
- /* Question 1 what will print out here */
-   function foo(){
-       function bar(){
-           return 3;
-       }
-       return bar(); // since the function is a constructor function thus have global scope and will return 8
-       // we said that two function with the same name will execute the last function will be the owner
-       function bar(){
-           return 8;
-       }
-   }
-
-   console.log(foo()); // 8
-
-   /* Questioln 2 what will print out */
-
-   function foo2(){ // we have a constructor function
-       var bar = function() { // we have an expression function
-           return 3;
-       };
-       return bar(); // return 3 and will not execute anything after return statemenet. we said that on function with return statement will stop executing code
-
-       var bar = function() {
-           return 8;
-       };
-   }
-   console.log(foo2()); // 3
-
-   /* Questioln 3 what will print out */
-
-   console.log(foo3()); //3  we said the function declaration have a global scope and are loaded before any code else is loaded in browser execution context
-   function foo3(){
-       var bar = function() { // we have an expression function p
-           return 3;
-       };
-       return bar(); // will return 3 and stop execution after return statement.
-       var bar = function() {
-           return 8;
-       };
-   }
-
-
-   /* Questioln 4 what will print out */
-
-   function foo4(){ // we have a constructor function
-       return bar(); // we have return an expression function before declaring will throw an error -  bar is not a function
-       var bar = function() {
-           return 3;
-       };
-       var bar = function() {
-           return 8;
-       };
-   }
 
 
 
 console.log("=================Callback functions========================");
-
 
   // callback functiokn a function that is passed to another function as parameter
   // a callback function is send to the click even method
@@ -161,16 +104,15 @@ console.log("=================Callback functions========================");
      }
     // when on button clicked call FullName with the callback passed as parameter
      let buttonGreeting = document.getElementById('greetingcallback');
-         buttonGreeting.addEventListener('click', () => {
+         buttonGreeting.addEventListener('click', function(e) {
            fullName('Naim', 'Latifi', greeting); // note we are not executing the callback function here but we are passing as variable to execute later on fullName
-
          });
 
 
     // Another example with callback function
     // here we want to create our div
     function createDivElement(el){
-        let divElement = el.target;
+        var divElement = el.target;
             divElement.style.width = '50px';
             divElement.style.height = '50px';
             divElement.style.padding = '20px';
@@ -179,7 +121,7 @@ console.log("=================Callback functions========================");
 
     // we pass createDivElement function as parameter
     function changeBackgroundColordDiv(e, callbackDivElement){
-       let randomBackgroundColor =  'rgb(' +
+       var randomBackgroundColor =  'rgb(' +
                                       Math.round(Math.random()*255) +
                                       ',' +
                                       Math.round(Math.random()*255) +
@@ -191,10 +133,7 @@ console.log("=================Callback functions========================");
 
     }
 
-    let getDivElement = document.getElementById('changeBackgroundColor');
-        getDivElement.addEventListener('click', (e)  => {
+    var getDivElement = document.getElementById('changeBackgroundColor');
+        getDivElement.addEventListener('click', function(e) {
           changeBackgroundColordDiv(e, createDivElement);
         });
-
-
- 

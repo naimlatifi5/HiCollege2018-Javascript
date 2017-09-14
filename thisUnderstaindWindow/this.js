@@ -1,7 +1,5 @@
 console.log("Hello this ", this);
-
 // simple function "this"
-
 function simpleFunction() {
   console.log("In simple function", this);
 }
@@ -10,27 +8,25 @@ simpleFunction();
 
 
 // this with function inside object ==> window
-
-
 var myObject = {
-
    helloThere: function(){
      simpleFunction(); // referst to window
    }
 }
-console.log("function inside function object " , myObject.helloThere());
 
+
+console.log("function inside function object " , myObject.helloThere());
 var myObject2 = {
 
    printSomethingLater: function(){
      var that = this // work around this issue
      setTimeout(function(){
        that.somethingToPrint()
-     }, 5000) //after 1 second
+     }, 1000)
    },
    somethingToPrint: function(){
      console.log("printed after 1 second");
    }
 }
 
-console.log("something to print with delay" , myObject2.printSomethingLater());
+myObject2.printSomethingLater();
