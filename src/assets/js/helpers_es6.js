@@ -1,3 +1,5 @@
+// some of the code helpers here
+
 const taxRate = 0.13;
 
  const couponCodes = ['BLACKFRIDAY', 'FREESHIP', 'HOHOHO'];
@@ -13,6 +15,10 @@ const taxRate = 0.13;
 
  function discountPrice(price, percentage) {
     return price * (1 - percentage);
+
+}
+function privateFunction () {
+  console.log("this function is private and not available outside module- because does not export anywhere");
 }
 
  const helloWorld = () => {

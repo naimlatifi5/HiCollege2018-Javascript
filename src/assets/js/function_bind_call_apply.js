@@ -1,25 +1,3 @@
-/*jshint esversion: 6 */
-
-function helloObject(){
-  console.log("hello object ");
-}
-helloObject();
-
-var person = {
-  firstName: 'Naim',
-  lastName : 'Latifi',
-  displayFullName: function(){
-    // this keyword will hold the value of the object because the object person will invoke the function displayFullName
-    console.log("Hello there " + this.firstName + " " +  this.lastName);
-  }
-};
-
-console.dir(person);
-console.log(person.displayFullName());
-
-
-
-
 console.log("============== bind() method =================");
 // #example1
 var myDiv = {

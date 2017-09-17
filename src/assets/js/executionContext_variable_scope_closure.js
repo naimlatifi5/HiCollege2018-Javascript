@@ -39,15 +39,17 @@ console.log(displayfullName());
 
 
 console.log("*************======= Scope chain ===========************");
-  var globally = " and I am global variable";
+// where the function sets physically looks for the outer environemnt for variable look up
+
+  var globally = " and I am global variable"; // global object (wnindow)
   function A(){
     var sayHi = "Hi function A";
-      return B();
-     function B(){
+    return B();
+      function B(){
        var name = ", hello to Function B";
-       //console.log(privateVar); private scope
-       return C();
-       function C(){
+       //console.log(privateVar); private scope // cannot access it is only private to function b
+       return C();  // new execution context is created.
+        function C(){
          var privateVar = "Cannot access outside function";
          // look up process within the chain starts with its own variable object
          // if it is not found then will climb into outer function wrapper B()
@@ -67,13 +69,13 @@ console.log("*************======= Scope chain ===========************");
       });
 
 
-    console.log('================= Exercies with functions scope ================');
+    console.log('================= MoreExercies with functions scope ================');
       /* Question 1 what will print out here */
         function foo(){
             function bar(){
                 return 3;
             }
-            return bar(); // since  function thus have global scope and will return 8
+            return bar(); //
             // we said that two function with the same name will execute the last function will be the owner
             function bar(){
                 return 8;
@@ -88,7 +90,7 @@ console.log("*************======= Scope chain ===========************");
                 return 3;
             };
 
-            return bar(); // return 3 and will not execute anything after return statemenet. we said that on function with return statement will stop executing code
+            return bar(); // function expression
 
             var bar = function() {
                 return 8;
@@ -97,20 +99,7 @@ console.log("*************======= Scope chain ===========************");
         console.log(foo2()); // 3
 
         /* Questioln 3 what will print out */
-
-        console.log(foo3()); //3  we said the function declaration have a global scope and are loaded before any code else is loaded in browser execution context
-        function foo3(){
-            var bar = function() { // we have an expression function p
-                return 3;
-            };
-            return bar(); // will return 3 and stop execution after return statement.
-            var bar = function() {
-                return 8;
-            };
-        }
-
-        /* Questioln 4 what will print out */
-        function foo4(){ // we have a constructor function
+        function foo4(){
             return bar(); // we have return an expression function before declaring will throw an error -  bar is not a function
             var bar = function() {
                 return 3;
@@ -122,30 +111,27 @@ console.log("*************======= Scope chain ===========************");
 
 
 
-console.log("************** hositing in javascript - variables ");
-function variableHositing(){
-  //console.log(hellovariable); // it is hoisted as undefined and placed on memory
-  var helloVariable = "Hello I am hosited to top"; // we assign the variable a name
-  console.log("I am not undefined-", helloVariable);
-}
+console.log("************** hositing in javascript - variables ========== ");
+//* console.log(variablethatisnotdefined) // reference error- try it
 
-//variableHositing();
 
 // Interpreter hoisted the variable to the top of the scope
 function onHoistingVariabe(){
-  var helloVariable;
+  var helloVariable; // creation phase and variable are saved in memory with undefined.
+  console.log(helloVariable); // undefined
+  helloVariable = "Hello I am hosited variable and I have a value";
   console.log(helloVariable);
-  helloVariable = "Hello I am hosited variable and I have a value of undefined";
 }
+onHoistingVariabe();
 
-//onHoistingVariabe()
+
+
 
 
 
 
 
 console.log("************** Closures in javascript **************");
-
   function createFunction() {
     var name = "hello function";
     return function(){
@@ -158,7 +144,7 @@ console.log("************** Closures in javascript **************");
   myFunction();
 
 
- 
+
   function changeHeading(size) {
      return function (){
        var heading3 = document.getElementById('heading_size');

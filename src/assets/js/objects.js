@@ -2,7 +2,7 @@
 
 console.log("=========== objects literal=========");
 // objects are a collection of key properties
-const person = {
+var person = {
   firstName :'Naim',
   lastName : 'Latifi'
 };
@@ -15,14 +15,16 @@ console.log(person.lastName);
 var myName = 'Nai';
 var copyMyname = myName;
     myName = 'Naim';
-
     console.log(myName); // Naim
     console.log(copyMyname); // Nai does not changed primitive types
 
-const myNameObject = {
+
+// object are passed by reference
+var myNameObject = {
    name : 'Nai',
    writable: false
 };
+
 var copyNameObject = myNameObject;
 // change the object name myNameObject
  myNameObject.name = 'Naim';
@@ -32,29 +34,18 @@ var copyNameObject = myNameObject;
 
 
  //# example3 object on DOM
-  var myDiv = document.getElementById('myObject');
- console.log(myDiv);
- console.log('What type: ',typeof myDiv); // object
- console.dir(myDiv);
- console.log(myDiv.id);
- console.log(myDiv.nodeName);
-
-
- var myCopyDiv = myDiv;
-      myDiv.id = 'helloDiv';
+var myDiv = document.getElementById('myObject');
+var myCopyDiv = myDiv;
+myDiv.id = 'helloDiv';
 console.dir(myDiv);
 console.dir(myCopyDiv);
 myDiv.style.padding = '20px';
 myDiv.style.backgroundColor = 'red';
+myCopyDiv.style.color = "white"; // notice how changing myCopy div changes its original myDiv as object are passed by reference.
 
-// # example4 create object
-var mySecondDiv = document.createElement('div');
-   mySecondDiv.id = 'mySecondDiv';
-   mySecondDiv.innerHTML = 'Div object 2';
-   mySecondDiv.style.padding = '20px';
-   mySecondDiv.style.backgroundColor = 'green';
-   mySecondDiv.marginTop = '20px';
-   document.body.appendChild(mySecondDiv);
+
+
+
 
 
  console.log("============== Constructor object ==============");
@@ -90,6 +81,7 @@ var mySecondDiv = document.createElement('div');
 
 
 console.log("====================== 'this' ===================");
+// check more examples under understandingThis.js
 
 console.log(this); // refers to the global object in browser window
 // inside an object referes to the object
@@ -102,7 +94,6 @@ const thisObject = {
 };
 
 thisObject.displayText();
-
 //# example 2
 function returnElementDiv(){
   console.log(this.id);
@@ -112,48 +103,3 @@ var getDivForThis = document.getElementById('helloDiv');
    if(getDivForThis){
      getDivForThis.addEventListener('click', returnElementDiv);
    }
-
-
-// #Example3
-
-const personObject = {
-  name: 'Naim',
-  lastName: 'Latifi',
-  getFullName: function(){
-    //console.log('Bounded', this.name +  ' ' + this.lastName);
-  },
-  executeInCallBackFunction : function(){
-    console.log('In callback function', this.name + ' ' + this.lastName);
-  },
-
-  usedInsideClosures: function(){
-    // closure - function inside anther function create a closure in javascript
-    var displayName =  function(){
-      console.log('Hola ' + this.name);
-    }.bind(this);
-    return displayName();
-  }
-};
-
-var displayFullName = personObject.getFullName;
-    console.log(displayFullName()); // undefined
-
-  // functions method call() to bind the personObject
-  console.log("********' displayName by call() '");
-var displayNameByCall = personObject.getFullName.call(personObject);
-     console.log(displayNameByCall);
-  // function method bind() to bind the personObject
-var displayNameByBind = personObject.getFullName.bind(personObject);
-    displayNameByBind();
-
-
-
-console.log("*********** apply() method **********");
-var displayNameByApply = personObject.getFullName.apply(personObject);
-    // this used in callback functions
-    var myElementDiv = document.getElementById('thisOnCallBack');
-    //console.log(personObject.executeInCallBackFunction());
-      // we are not executing this to the executeInCallBackFunction instead this refers this is now in button element
-        myElementDiv.addEventListener('click', personObject.usedInsideClosures.bind(personObject));
-    // 'this used inside clousures'
- console.log(personObject.usedInsideClosures()); // undefined because closures functions do not get access to the outer function

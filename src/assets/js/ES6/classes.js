@@ -62,17 +62,22 @@ console.dir(myObjecClass.getClassName());
 console.log("===============Inheritance=============");
 
 class Father1 {
+
   constructor(name){
   this.fatherName = "Anders";
   this.name = name;
   this.addresses = ['Söderberga', 'Nacka'];
   }
   sayName() {
-    return this.name;
+    return  this.name;
   }
 
   sayFathersName() {
     return this.fatherName;
+  }
+
+  getAddresses() {
+    return this.addresses;
   }
 
 }
@@ -99,3 +104,9 @@ console.log(firstChild.getChildAge());
 // new friends member
 firstChild.addresses.push('New address');
 console.log(firstChild.addresses);
+
+let secondChild = new Child3('Beo', '5');
+console.log(secondChild.sayFathersName());
+console.log(secondChild.sayName());
+console.log(secondChild.getChildAge());
+console.log(secondChild.getAddresses());

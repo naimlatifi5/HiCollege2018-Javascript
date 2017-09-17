@@ -78,8 +78,8 @@ letInForLoopES6();
 function createThreeFunctionInArray(){
    var arr = [];
    for(var i = 0; i<3; i++ ) {
-     let j =i;
-      arr.push(function(){
+     let j =i; // this fix the problem with hoisiting and closure variables.
+       arr.push(function(){
         console.log(j);
       });
    }

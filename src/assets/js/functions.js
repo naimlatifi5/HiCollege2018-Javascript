@@ -55,23 +55,21 @@ console.log(helloMyExpressionFunction instanceof Object);
     number = number || 5;
     return number;
   }
-
   console.log(addFive(0));
 
 
 
 
 console.log("=================Callback functions========================");
-
   // callback functiokn a function that is passed to another function as parameter
   // a callback function is send to the click even method
- let buttonCallBack = document.getElementById('callbackFunctionButton');
+ var buttonCallBack = document.getElementById('callbackFunctionButton');
      buttonCallBack.addEventListener('click',divElement);
 
 
      function divElement(){
        // create a div here and append when clicked
-       let myDiv = document.createElement('div');
+       var myDiv = document.createElement('div');
            myDiv.style.width = "50px";
            myDiv.style.height = "50px";
            myDiv.style.background = 'red';
@@ -103,7 +101,7 @@ console.log("=================Callback functions========================");
         resultGreetingElement().innerHTML =`Special greeting for you ${name}`;
      }
     // when on button clicked call FullName with the callback passed as parameter
-     let buttonGreeting = document.getElementById('greetingcallback');
+     var buttonGreeting = document.getElementById('greetingcallback');
          buttonGreeting.addEventListener('click', function(e) {
            fullName('Naim', 'Latifi', greeting); // note we are not executing the callback function here but we are passing as variable to execute later on fullName
          });
