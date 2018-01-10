@@ -7,14 +7,22 @@ function company(){
     var name = "HIQ"; // it is scoped to inner function company and cannot be access outside the function
     return name;
 }
-//console.log(name)
+//console.log(name  );
+var a;
+ a = "hello I am not undefined";
+ console.log("Print me ", a);
+
 console.log(company());
 // new execution context is created
-console.log(hiCollege());
-function hiCollege(){
+
+var hiCollege = function (){
   var courseName = "Javascript college"; // scoped to innerfunction hiCollege and cannot access outside of the function.
   return courseName;
 }
+console.log(hiCollege());
+
+
+
 
 // Closures
 // an execution context is created
@@ -27,7 +35,8 @@ function displayfullName(){
   return fullName; // fullName is a global variable and can be access to the inner function.
 }
 
-console.log(fullName);// global variable
+
+
 console.log(displayfullName());
 //console.log(courseName); // Reference error- courseName is not defined.
 
@@ -47,7 +56,7 @@ console.log("*************======= Scope chain ===========************");
     return B();
       function B(){
        var name = ", hello to Function B";
-       //console.log(privateVar); private scope // cannot access it is only private to function b
+        //console.log(privateVar); private scope // cannot access it is only private to function b
        return C();  // new execution context is created.
         function C(){
          var privateVar = "Cannot access outside function";
@@ -56,7 +65,7 @@ console.log("*************======= Scope chain ===========************");
          // in this case will look in c() function if not found will look in B()
          // then in B is found and will write name, sayHi then found in A and globally is a global variable that is accessible in any scope
          //
-         return sayHi + name + globally;
+         return sayHi + name + globally + privateVar;
 
        }
      }

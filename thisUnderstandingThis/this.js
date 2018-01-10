@@ -2,10 +2,12 @@ console.log("Hello this ", this);
 
 // "this" in simple functions
 function simpleFunction() {
+  var name = "hello";
   console.log("In simple function", this); //refers to window but as we are using babel it modules are boundled to undefined- se example outside src element
 }
 
 simpleFunction();
+console.log(hello);
 
 
 // this with function inside object ==> window
@@ -42,7 +44,7 @@ console.log(person.lastName);
 
 var myObject2 = {
    printSomethingLater: function(){
-     var that = this // work around this issue we have pattern like assignen that = this ans where javascript will look in scope chain for that variable. 
+     var that = this // work around this issue we have pattern like assignen that = this ans where javascript will look in scope chain for that variable.
      setTimeout(function(){
        that.somethingToPrint()
      }, 1000)
