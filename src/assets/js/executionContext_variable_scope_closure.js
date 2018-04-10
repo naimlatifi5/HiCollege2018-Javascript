@@ -21,10 +21,6 @@ var hiCollege = function (){
 }
 console.log(hiCollege());
 
-
-
-
-// Closures
 // an execution context is created
 function displayfullName(){
   var fullName = "I am overrided"
@@ -35,15 +31,8 @@ function displayfullName(){
   return fullName; // fullName is a global variable and can be access to the inner function.
 }
 
-
-
 console.log(displayfullName());
 //console.log(courseName); // Reference error- courseName is not defined.
-
-
-
-
-
 
 
 
@@ -64,21 +53,19 @@ console.log("*************======= Scope chain ===========************");
          // if it is not found then will climb into outer function wrapper B()
          // in this case will look in c() function if not found will look in B()
          // then in B is found and will write name, sayHi then found in A and globally is a global variable that is accessible in any scope
-         //
          return sayHi + name + globally + privateVar;
-
        }
      }
   }
 
-  let button1 = document.getElementById("button1");
+  var button1 = document.getElementById("button1");
       button1.addEventListener('click', function(e) {
-         let spanResult = document.getElementById('result_scope_chain');
-             spanResult.innerHTML = A();
-      });
+        var spanResult = document.getElementById('result_scope_chain');
+        spanResult.innerHTML = A();
+  });
 
 
-    console.log('================= MoreExercies with functions scope ================');
+  console.log('================= MoreExercies with functions scope ================');
       /* Question 1 what will print out here */
         function foo(){
             function bar(){
@@ -92,15 +79,13 @@ console.log("*************======= Scope chain ===========************");
         }
 
         console.log(foo()); // 8
-        /* Questioln 2 what will print out */
 
+        /* Questioln 2 what will print out */
         function foo2(){ // we have a function declaration
             var bar = function() { // we have an expression function
                 return 3;
             };
-
             return bar(); // function expression
-
             var bar = function() {
                 return 8;
             };
@@ -134,12 +119,6 @@ function onHoistingVariabe(){
 onHoistingVariabe();
 
 
-
-
-
-
-
-
 console.log("************** Closures in javascript **************");
   function createFunction() {
     var name = "hello function";
@@ -152,12 +131,11 @@ console.log("************** Closures in javascript **************");
   var myFunction = createFunction();
   myFunction();
 
-
-
+ 
   function changeHeading(size) {
-     return function (){
+    return function (){
        var heading3 = document.getElementById('heading_size');
-           heading3.style.fontSize = size + 'px'; // closure and see how we can access size from outer variable fucntion
+        heading3.style.fontSize = size + 'px'; // closure and see how we can access size from outer variable fucntion
     };
   }
 
