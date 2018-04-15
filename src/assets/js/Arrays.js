@@ -30,11 +30,41 @@ console.log(myHiCollege);
 
 console.log("************* Join ******************");
 // join arrays to a string by adding a seperator
-
 console.log(myHiCollege.join('----****----*'));
+
 
 console.log("************* Concat ******************");
 var newArray = myArray.concat(myHiCollege);
 console.log(newArray);
 
-console.log("************* Concat ******************");
+console.log("************* Slice ******************");
+myHiCollege.push('Javascript');
+console.log(myHiCollege);
+var mySliceArray = myHiCollege.slice(1);
+console.log("Slice the array from index 1 but end not included", mySliceArray);
+console.log("Original array is not modified " , myHiCollege);
+
+console.log("************* Splice ******************");
+var spliceArray = myHiCollege.splice(1,1);
+console.log("Splice and remove element at position 1- ", spliceArray);
+console.log("Original array is alerted", myHiCollege);
+
+console.log("************* Filter ******************");
+myHiCollege.push('Javascript');
+var filteredJavascriptArray = myHiCollege.filter(function(element){
+   return element === 'Javascript';
+})
+console.log("Original array: " , myHiCollege);
+console.log("My filtered array is ", filteredJavascriptArray);
+
+console.log("************* ForEach ******************");
+console.log("Original array:", myHiCollege);
+myHiCollege.forEach(function(item) {
+  console.log("Looping through my array elements", item);
+});
+
+console.log("************* Reverse ******************");
+myHiCollege.push('HiCollege');
+console.log("Original array:", myHiCollege);
+var reverseMyArray = myHiCollege.reverse();
+console.log("Reversed array" , reverseMyArray);
