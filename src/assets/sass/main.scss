@@ -18,3 +18,20 @@ section {
 section h3 {
    font-size: 15px;
 }
+
+.list-container {
+  ul {
+    border: 0;
+    list-style: none;
+    padding: 0;
+    margin: 0 ;
+  }
+
+  li {
+    padding: 10px;
+    text-align: center;
+    background-color: grey;
+    color: black;
+    margin-bottom: 10px;
+  }
+}

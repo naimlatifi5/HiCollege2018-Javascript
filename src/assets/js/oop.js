@@ -109,7 +109,6 @@ Person3.prototype.printPersonInfo = function(){
 }
 
 // first person
-
 var naim = new Person3();
 naim.friends.push('Johan');
 
@@ -146,12 +145,10 @@ console.log("What are my freinds - secondPerson" , secondPerson.friends);
 
 
 // An example with DOM
-
  function Image(name , src){
    this.name = name;
    this.src = src;
  }
-
 
  // we want to have the prototype method to crate the image
 Image.prototype.createImage = function(){

@@ -68,3 +68,18 @@ myHiCollege.push('HiCollege');
 console.log("Original array:", myHiCollege);
 var reverseMyArray = myHiCollege.reverse();
 console.log("Reversed array" , reverseMyArray);
+
+// an examle with DOM
+var template = '<ul>';
+
+for(var i = 0; i < 10; i++) {
+   template += "<li class='items'>" + i +  "</li>";
+}
+template += "</ul>";
+// append the list to the list container
+var listContainer = document.querySelector('.list-container');
+    listContainer.innerHTML = template;
+
+// loop through the list items
+var getListItems = document.querySelectorAll('.list-container li');
+console.log(getListItems);
