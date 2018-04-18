@@ -82,4 +82,25 @@ var listContainer = document.querySelector('.list-container');
 
 // loop through the list items
 var getListItems = document.querySelectorAll('.list-container li');
-console.log(getListItems);
+// needs the NodeList array to get converted to real array
+// One method is to use Array.prototype.forEach.call if not used with ES6 which is [...]
+var properArray = Array.prototype.slice.call(getListItems); //
+
+// loop through all list elements
+properArray.forEach(function(item, index){
+   if(index === 2) {
+     item.classList.add('red');
+   }
+   if(index === 5) {
+     item.classList.add('yellow');
+   }
+   else {
+     item.classList.add('green');
+   }
+});
+
+// filter array elements with red and green color
+var filteredArray  = properArray.filter(function(item){
+  return item.classList.contains('red') || item.classList.contains('yellow');
+})
+console.log(filteredArray);
