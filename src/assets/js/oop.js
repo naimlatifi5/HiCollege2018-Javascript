@@ -166,7 +166,7 @@ Image.prototype.createImage = function(){
 var firstImage = new Image('myFirstImage', 'https://lh6.ggpht.com/ItcoMm0qVG2JsPnPJVN4Ece6vlXhnYt9E069Iw2lJpKj2_lKml-iV41ur9iaa5XQxg=h900');
 firstImage.createImage();
 
-var secondImage = new Image('mySecondImage', 'https://static.pexels.com/photos/20974/pexels-photo.jpg');
+var secondImage = new Image('mySecondImage', 'https://media3.giphy.com/media/yX1fQt8aZeKf6/giphy-downsized.gif');
 secondImage.createImage();
 
 
