@@ -9,12 +9,14 @@
     - Example with closures.
 
 #Session2- Objects & "this"
+
     - How do we create objects ?
     - What is the value of "this" inside object ?
     - What is the value of "this" in global object ?
     - What is the value of "this" in a simple function ?
 
 #Session3-  Arrays
+
     - How do we create an array ?
     - An example with methods:
     - push()
