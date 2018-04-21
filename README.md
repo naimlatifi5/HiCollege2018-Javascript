@@ -29,7 +29,7 @@
     - filter()
 
 
-#Session4-  
+#Session4- Functions  
 
      - Function creation
      - Example with function declaration, function expression and constructor functions
@@ -38,4 +38,8 @@
      - Callback functions
      - An example with callback function
 
-#Session5-  
+#Session5- Function methods bind(), call(), apply()
+
+     - An example with bind() function method
+     - An example with call() function method
+     - An example with apply() function method

@@ -1,60 +1,61 @@
 console.log("============== bind() method =================");
-// #example1
+
+var personObject = {
+   firstName: 'Naim',
+   lastName : 'Latifi',
+   displayFullName : function(){
+     return "Hello from object " + this.firstName + ' ' + this.lastName;
+   }
+};
+
+var infoPerson = function(datebirth,country){
+   console.log("I am binded and I own the object context ", this.displayFullName());
+   console.log("Birthday ", datebirth);
+   console.log('Country:' , country)
+};
+// we bind personObject to resolve the "this" context
+//console.log("What is the 'this' value", infoPerson('860522', 'Sweden'));
+var getCopyBindFunction = infoPerson.bind(personObject);
+getCopyBindFunction('860522', 'Sweden');
+
+
+// #example2 with OM
 var myDiv = {
-   paddingTop : '20px',
-   paddingBottom : '20px',
-   background:'red',
-   fontSize: '20px',
-   buttonName: 'secondary button',
+   divName: 'secondary button',
    changeButtonStyle: function(){
-     this.style.paddintTop = '20px';
+     this.style.paddingTop = '20px';
      this.style.paddingBottom = '20px';
      this.style.backgroundColor = 'red';
-     this.style.fontSize = '20px';
-    console.log(this);
-
+     this.style.fontSize = '10px';
+     this.style.width = "150px";
+     this.style.height = "150px";
+    console.log("This referes to element div " , this);
   }
 };
 
 function displayButtonName(){
-  console.log("hi" + this.buttonName);
+  // change the div name
+  console.log("Our div name", this.divName);
+  this.divName = 'Square div';
+  console.log("What is 'this' ", this);
+  console.log("Our div name now ", this.divName);
 }
 
 var div = document.getElementById('thisValue');
 var divBorrowMethod = document.getElementById('borrowMethod');
-
 div.addEventListener('click', myDiv.changeButtonStyle);
 divBorrowMethod.addEventListener('click', displayButtonName.bind(myDiv)); // with the help of bind method
 
-//#example2
-
- var personObject = {
-    firstName: 'Naim',
-    lastName : 'Latifi',
-    displayFullName : function(){
-      return this.firstName + ' ' + this.lastName;
-    }
- };
-
-var infoPerson = function(datebirth,country){
-    console.log(this.displayFullName()); // error because we lost this and it points to global variable
-    console.log("Birthday ", datebirth);
-}; //bind(personObject); we can allso set bind(personObject) direct after function expression infoPerson
-// we set this explicity to personObject
-var getCopyBindFunction = infoPerson.bind(personObject);
-getCopyBindFunction('860522');
-
 
 console.log("======================= call() method =================");
-//#exaple 1
-// with the call we set this explicitly and invoke the function immediately
+
+// with the call we set 'this' explicitly and invoke the function immediately
 var sayhello = function(greeting){
   console.log(greeting + ' ' + this.displayFullName());
-
 };
-sayhello.call(personObject, 'Hello there'); // in call you can pass parameters of function invoked
+sayhello.call(personObject, 'With call() method we say : '); // in call you can pass parameters of function invoked
 
-//#example2 - todo create an example with DOM elements
+
 console.log("================= apply() method ===================");
 // apply works the same except that arguments are passed as arra
 sayhello.apply(personObject, ['Hello there']);
