@@ -16,10 +16,10 @@ console.log(myObject);
    }
  }
 // instead of duplicating multiple objects with with different persons name we use constructor object
-
 console.log(person);
 console.log(person.sayHi());
 
+console.log("============ Constructor functions ==================");
 // constructor function person
 function Person(name){
   this.name = name;
@@ -36,26 +36,21 @@ var person2 = new Person('Bob');
 // we can create a unlimited instances from Person constructor function
 console.log(person1);
 console.log(person1.sayHi());
-
 console.log(person2);
 console.log(person2.sayHi());
 
-
-console.log(person1.constructor === Person); // true because Person is the constructor function
+console.log("is person1 a constructor function ? " , person1.constructor === Person); // true because Person is the constructor function
 console.log(person1 instanceof Object); // true
 console.log("Yes person1 it is an instance from Person " ,person1 instanceof Person);
 // Prototypes- Each function has prototype properties which is an object that contains properties and methods that are available to instances of particular reference type.
+
+console.log("=================== Prototype ==================");
+function Person1() {}
 // Benefits with proptotype is that all of its properties and methods are shared among object instances
-
-function Person1() {
-
-}
-
 Person1.prototype.name = 'Naim';
 Person1.prototype.sayName = function(){
-  console.log(this.name);
+  console.log("Print my name ", this.name);
 }
-
 
 var hiPerson1 = new Person1('Naim');
 console.log(hiPerson1);
@@ -67,15 +62,13 @@ console.log(hiPerson2);
 console.log("Yes the are the same method in prototype", hiPerson1.sayName() === hiPerson2.sayName());
 
 // to see if there is a relationshipt between objects there is a method called isPrototypeof
-console.log(Person1.prototype.isPrototypeOf(hiPerson1)); // true because it is a prototype
-console.log(Person1.prototype.isPrototypeOf(hiPerson2)); // true because it is a prototype
-console.log(Person1.prototype.isPrototypeOf(person1)); // false because person1 is not relation with prototype of Person1 function contructor
+console.log("Is prototype of ? " ,Person1.prototype.isPrototypeOf(hiPerson1)); // true because it is a prototype
+console.log("Is prototype of ?", Person1.prototype.isPrototypeOf(hiPerson2)); // true because it is a prototype
+console.log("Is prototype of ? ", Person1.prototype.isPrototypeOf(person1)); // false because person1 is not relation with prototype of Person1 function contructor
 
 // or Object.getPrototypeOf()
 // we want to check the object hiPerson1 is prototype of function with prototype
 console.log("Object prototype of instance object is is equal to Person1.prototype ", Object.getPrototypeOf(hiPerson1) === Person1.prototype);
-
-
 // hasOwnProperty() methods of Object
 
 // check if instance hiPerson1 has own property- it avoids prototype.
@@ -83,21 +76,9 @@ console.log("Does the instance hiPerson1 has own property", hiPerson1.hasOwnProp
 // but check if instance person1 has own property
 console.log("Does the instance person1 has own property ?" , person1.hasOwnProperty('name') ? "Yeeeees" : "Noooooo");
 
-// we can write prototypes as object literals
 
-// Prototypes are used in native objects like Strings Arrays, Object
-console.log(Array.prototype.concat(['1','2'], ['3','4'])) // and other methods
-// or a method String for upUpperCase
-var stringHello = "Hello string ";
-var toUpperCase = stringHello.toUpperCase(stringHello);
-console.log(toUpperCase);
-
-// one drawback on prototypes is on reference types as follow:
-
-function Person3(){
-
-}
-
+// One of the drawbacks of prototype is when used with references types
+function Person3(){}
 Person3.prototype.firstName = "Naim";
 Person3.prototype.age = "31";
 Person3.prototype.occupation = "Web developer";
@@ -143,7 +124,7 @@ console.log(secondPerson);
 console.log("What are my friends- firstPerson " , firstPerson.friends);
 console.log("What are my freinds - secondPerson" , secondPerson.friends);
 
-
+console.log("============ An example with DOM ")
 // An example with DOM
  function Image(name , src){
    this.name = name;
@@ -163,15 +144,16 @@ Image.prototype.createImage = function(){
       containerToAppendImage.appendChild(image);
 }
 
-var firstImage = new Image('myFirstImage', 'https://lh6.ggpht.com/ItcoMm0qVG2JsPnPJVN4Ece6vlXhnYt9E069Iw2lJpKj2_lKml-iV41ur9iaa5XQxg=h900');
-firstImage.createImage();
+var dog1 = new Image('myFirstImage', 'https://images.dog.ceo/breeds/newfoundland/n02111277_3153.jpg');
+dog1.createImage();
 
-var secondImage = new Image('mySecondImage', 'https://media3.giphy.com/media/yX1fQt8aZeKf6/giphy-downsized.gif');
-secondImage.createImage();
+var dog2 = new Image('mySecondImage', 'https://images.dog.ceo/breeds/kuvasz/n02104029_4317.jpg');
+dog2.createImage();
 
 
 // ============= Inheritances ===================
-console.log("========== Inheritance ============");
+console.log("================== Inheritance =====================");
+
 function Father(){
   this.address = 'Brooma';
   this.newAddress = 'Nacka';
@@ -179,44 +161,43 @@ function Father(){
 
 Father.prototype.familyName = 'Latifi';
 Father.prototype.getFamilyAddress = function() {
-  console.log(this.address);
+  console.log("Family address", this.address);
 }
 
 function Child(){
   this.address = "Stockholm";
+  this.newAddress ="Solna";
 }
-Child.prototype = new Father(); // prototype chaining
 
+Child.prototype = new Father(); // prototype chaining where my child has access to all my fathers info
 var myBoy = new Child();
 console.log(myBoy.familyName);
 console.log(myBoy);
 
 // how can we know that myBoy is an instance of Child or Father ?
+console.log("My boy instance of object", myBoy instanceof Object); // true because object prototype exist in Father
+console.log("My boy instance of child constructor", myBoy instanceof Child); // true because myBoy is an instance of Child
+console.log("My boy instance of Father constructor", myBoy instanceof Father); // due to prototype chaining relation Fathers prototype are also Child's prototype inheritance or prototype chaining
 
-console.log(myBoy instanceof Object); // true because object prototype exist in Father
-console.log(myBoy instanceof Child); // true because myBoy is an instance of Child
-console.log(myBoy instanceof Father); // due to prototype chaining relation Fathers prototype are also Child's prototype inheritance or prototype chaining
-
- Child.prototype.getChildAddress = function() {
-   console.log(this.address);
+Child.prototype.getChildAddress = function() {
+   console.log("Child address:", this.address);
  }
+
 
 // instance child1
  var child1 = new Child();
-// we can override existing method on fathers as long as Prototype chiain is  created as above - Child.prototype = new Father()
-
-
+// we can override existing method on fathers as long as Prototype chaining is created as above - Child.prototype = new Father()
 // override existing method in superType  Father() and getFamilyAddress is being shadowed in prototype chain
  Child.prototype.getFamilyAddress = function(){
-     console.log(this.newAddress);
+     console.log("New address to my son override from family address", this.newAddress);
  }
-
  child1.getFamilyAddress(); // family address overrided
  child1.getChildAddress(); // new child address
 
 
- // One drawback with prototype chain is on reference types
+console.log("================= Constructor stealing on reference types ================");
 
+ // One drawback with prototype chain is on reference types
  function FamilyAddress(){
    this.address = ['Bromma', 'Stockholm', 'Nacka'];
  }
@@ -228,21 +209,14 @@ console.log(myBoy instanceof Father); // due to prototype chaining relation Fath
 
 // now childAddress has all properties and methods from familyAddress - prototype chaining.
 ChildAddress.prototype = new FamilyAddress();
-
 var child2 = new ChildAddress();
 child2.address.push('Solna');
-
 console.log("Child2 added new address " , child2);
-
 var child3 = new ChildAddress();
 console.log("Child 3 does not want to have a new address added from child2", child3);
 
 // How to resolve the issue that changes made instance child2 to not reflect on instance child3 ?
-
-
 // Constructor stealing --- a technique we call the constructor from the SuperType FamilyAddress to the subType childAddress- added to ChildAddress comment out.
-
-
 // Combination of constructor stealing and prototype chain- to fix the issue with reference types
 
 function Father1(name){
@@ -253,7 +227,6 @@ function Father1(name){
 Father1.prototype.sayFatherName = function(){
   console.log(this.fathersName);
 }
-
 
 function Child3(name, age){
   // stealing constructor

@@ -43,3 +43,11 @@
      - An example with bind() function method
      - An example with call() function method
      - An example with apply() function method
+
+#Session6- Object oriented programming (OOP)- Constructor functions , prototype chain , inheritance
+
+     - How do we create constructor functions ?
+     - How do we create prototypes ?
+     - How do we create constructor function in combination with prototype ?
+     - How do we create inheritance ?
+     - An example how child inherits all methods and properties from its parent. 
