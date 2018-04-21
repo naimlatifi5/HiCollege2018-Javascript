@@ -1,7 +1,9 @@
 // Function declaration are hoisted
 /*jshint esversion: 6 */
 var printMe = "Print me";
-console.log("================= Function creation ==================");
+
+console.log("================= Function declaration and function expressions ==================");
+
 function sayHello(){
    console.log("hello there function declaration");
    console.log(printMe); // printMe is in global context and thus have access sayHello
@@ -20,16 +22,16 @@ function sayHelloReturnName(name){
 }
 console.log(sayHelloReturnName('Naim'));
 
-
-
 // functions with multiple arguments
 function helloArguments (name, lastName){
   console.table(arguments);
-  console.log(typeof arguments);
+  console.log("Typeof ", typeof arguments);
 }
 
 helloArguments('Naim', 'Latifi');
 
+
+console.log("================ Functions with arguments and default parameters ==================");
 // function expression are stoerd in varaible and are not hoisted
 // since these functions they do not have a name they are also called anonymous functions
 var helloMyExpressionFunction = function(){
@@ -38,12 +40,11 @@ var helloMyExpressionFunction = function(){
 };
 helloMyExpressionFunction(2,3);
 // functions are instance of a function
-console.log(helloMyExpressionFunction instanceof Function); // true
+console.log("Is instance of function", helloMyExpressionFunction instanceof Function); // true
 // we said that functions are firstclass object and thus are instance of object as well
-console.log(helloMyExpressionFunction instanceof Object);
+console.log("Is instance of the object ", helloMyExpressionFunction instanceof Object);
 
 // functions with default parameteres ES5
-
   function sayHiDefaultParam(name){
     name = name || 'Naim';
     return name;
@@ -57,7 +58,19 @@ console.log(helloMyExpressionFunction instanceof Object);
   }
   console.log(addFive(0));
 
+ console.log("============== Constructor functions =================");
+ function SayHello(name, lastName, greeting) {
+   this.name = name;
+   this.lastName = lastName;
+   this.greeting = greeting;
+ }
 
+ // create an object from constructor function
+ var obj1 = new SayHello('Naim', 'Latifi', 'Hi there ');
+ console.log(obj1);
+
+ var obj2 = new SayHello('Jimmy', 'Boa', 'Greetings');
+ console.log(obj2);
 
 
 console.log("=================Callback functions========================");
@@ -92,20 +105,20 @@ console.log("=================Callback functions========================");
         if(typeof callback === 'function'){
            callback(name);
         }else {
-           resultGreetingElement().innerHTML =  `Thank you: ${name}, ${lastname} but we do not have a callback function passed`;
+           resultGreetingElement().innerHTML =  "Thank you:" + name +  lastname + " but we do not have a callback function passed";
         }
-
      }
      // greeting function is called and invoked inside fullName, note that callbacks functions create closures
      function greeting (name){
-        resultGreetingElement().innerHTML =`Special greeting for you ${name}`;
+        resultGreetingElement().innerHTML ="Thank you and a special greeting to you, too " +  name;
      }
     // when on button clicked call FullName with the callback passed as parameter
      var buttonGreeting = document.getElementById('greetingcallback');
          buttonGreeting.addEventListener('click', function(e) {
            fullName('Naim', 'Latifi', greeting); // note we are not executing the callback function here but we are passing as variable to execute later on fullName
+           // an example where we do not pass a callback function , check it out
+           //fullName('Naim', 'Latifi', 'OBS not a callback function');
          });
-
 
     // Another example with callback function
     // here we want to create our div

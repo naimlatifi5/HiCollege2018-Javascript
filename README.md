@@ -31,4 +31,11 @@
 
 #Session4-  
 
+     - Function creation
+     - Example with function declaration, function expression and constructor functions
+     - Function with arguments
+     - Function with default arguments
+     - Callback functions
+     - An example with callback function
+
 #Session5-  
